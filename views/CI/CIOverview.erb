@@ -12,16 +12,15 @@ table, th, td {
 
 Start one by opening a Pull-Request in a connected repository. Send a PR-Webhook to /ci/receive" %>
 <% else %>
-<table>
-	<tr> <th> Repo </th> <th> Commit </th> <th> Check </th> </tr>
-<%=
-	output = ""
-	checker.each do |rInfo, check|
-		output = output + %Q!
-		<tr> <td>#{rInfo[:owner]}/#{rInfo[:repo]}</td> <td>#{rInfo[:commit]}</td> <td>#{check.name}</td> </tr>!
-	end
-	output
-	%>
-</table>
+  <table>
+  	<tr> <th> Repo </th> <th> Commit </th> <th> Check </th> </tr>
+  <% checker.each do |rInfo,check| %>
+    <tr>
+      <td><%= rInfo[:owner] %>/<%= rInfo[:repo] %></td>
+      <td><%= rInfo[:commit] %></td>
+      <td><%= check.name %></td>
+    </tr>
+  <% end %>
+  </table>
 
 <% end %>
