@@ -1,0 +1,7 @@
+<%= markdown '#Checks status overview' %>
+
+
+<% if checker.active? == 0 %>
+<%= markdown "Currently *no* checks are active! \n
+Start one by opening a Pull-Request in a connected repository!" %>
+<% end %>
