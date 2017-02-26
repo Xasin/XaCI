@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby2.0
 
 require 'sinatra'
 require 'rdiscount'
@@ -12,7 +12,7 @@ get '/ci' do
 end
 
 get '/ci/:owner/:repository' do
-	erb :CIDetails, :locals => {:owner => params[:owner], :repository => params[:repository],
+	erb :'CI/CIDetails', :locals => {:owner => params[:owner], :repository => params[:repository],
 															:checker => checks }
 end
 

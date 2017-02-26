@@ -1,29 +1,24 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby2.0
 
-require_relative 'Check'
+require_relative 'StatCheck'
 
 class CheckManager
 	def initialize
-		@checks = {:XasWorks => {:Notos => {"asd0918i8das" => Check.new("Test Check", "No Info here! :P", "."),
-														"pfrlplpasdaw" => Check.new("Also test check", "BKA", ".")}}}
+		@checks = Hash.new();
 	end
 
 	def each
-		@checks.each do |owner, repoHash|
-			repoHash.each do |repo, checkHash|
-				checkHash.each do |commit, check|
-					yield({:owner => owner, :repo => repo, :commit => commit}, check)
-				end
-			end
+		@checks.each do |statHash, statCheck|
+			yield(statCheck);
 		end
 	end
 
 	def numActive
 		active = 0
 
-		self.each do |callerInfo, check|
-			if check.respond_to? "running?"
-				active += 1 if check.running?
+		self.each do |statCheck|
+			if statCheck.respond_to? "status?"
+				active += 1 if (statCheck.status? == 'pending')
 			end
 		end
 
@@ -31,6 +26,12 @@ class CheckManager
 	end
 
 	def has?(owner, repo)
-		@checks[owner.to_sym].key?(repo.to_sym) if @checks.key?(owner.to_sym)
+		hasCheck = false;
+
+		self.each do |check|
+			hasCheck = true if check.info[:repo] == "#{owner}/#{repo}";
+			break;
+		end
+
 	end
 end
