@@ -1,5 +1,5 @@
 <%= markdown "#Check details for #{owner}\'s #{repository}" %>
 
 <% unless checker.has?(owner, repository) %>
-<%= markdown "*Which ... Doesn't seem to have any checks.*" %>
+<%= markdown "*Which ... Doesn't seem to have any checks running.*" %>
 <% end %>

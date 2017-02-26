@@ -3,12 +3,12 @@
 require 'sinatra'
 require 'rdiscount'
 
-require_relative 'checker'
+require_relative 'CheckManager'
 
-checks = Checker.new
+checks = CheckManager.new
 
 get '/ci' do
-	erb :CIOverview, :locals => {:checker => checks}
+	erb :'CI/CIOverview', :locals => {:checker => checks}
 end
 
 get '/ci/:owner/:repository' do
